@@ -73,11 +73,10 @@ const Output = () => {
             ) : (              <div className="flex items-center justify-center h-96 text-center">
                 <div className="space-y-6">                  <div className="w-20 h-20 mx-auto bg-gradient-to-br from-accent/20 to-primary/20 rounded-2xl flex items-center justify-center border border-accent/20 shadow-lg">
                     <Rocket className="w-10 h-10 text-accent" />
-                  </div>
-                  <div className="space-y-2">
+                  </div>                  <div className="space-y-2">
                     <h3 className="text-xl font-semibold bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent">Ready to Generate</h3>
                     <p className="text-muted-foreground max-w-sm leading-relaxed">
-                      Fill in your details and click "Generate Bio" to get started with your platform-optimized bios.
+                      Fill in your details and click &ldquo;Generate Bio&rdquo; to get started with your platform-optimized bios.
                     </p>
                   </div>
                 </div>
