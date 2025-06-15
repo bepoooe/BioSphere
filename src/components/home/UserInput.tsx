@@ -96,8 +96,24 @@ const UserInput = () => {
       emojis: false,
     },
   });
-
   const { setOutput, setLoading, loading } = useContext(BioContext);
+
+  // Watch the platform field to update placeholder text
+  const selectedPlatform = form.watch("platform");
+
+  // Dynamic placeholder text based on selected platform
+  const getPlaceholderText = (platform: string) => {
+    switch (platform) {
+      case "twitter":
+        return "Add your old Twitter/X bio or write a few sentences about yourself for your Twitter profile";
+      case "instagram":
+        return "Add your old Instagram bio or write a few sentences about yourself for your Instagram profile";
+      case "linkedin":
+        return "Add your old LinkedIn headline/summary or write a few sentences about yourself for your LinkedIn profile";
+      default:
+        return "Add your old bio or write a few sentences about yourself";
+    }
+  };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
@@ -326,11 +342,10 @@ const UserInput = () => {
                         <User className="w-4 h-4 text-accent" />
                         About Yourself
                       </span>
-                    </FormLabel>
-                    <FormControl>
+                    </FormLabel>                    <FormControl>
                       <Textarea
                         {...field}
-                        placeholder="Add your old twitter bio or write few sentances about yourself"
+                        placeholder={getPlaceholderText(selectedPlatform)}
                         className="min-h-[10rem]"
                       />
                     </FormControl>
