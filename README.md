@@ -1,5 +1,16 @@
 # BioSphere
-An AI-powered multi-platform bio generator built with Next.js and Groq's Llama 3 models. This project features intelligent bio generation for Twitter/X, Instagram, and LinkedIn with platform-specific optimization, customizable settings, and real-time AI processing. Optimized for performance with server-side generation and responsive design.
+An AI-powered multi-platform bio generator built with Next.js and Groq's Llama 3 models. This project features intelligent bio generation for Twitter/X, Instagram, and LinkedIn with platform-specific optimization, customizable settings, and real-time AI processing. Enhanced with RAG (Retrieval-Augmented Generation) for superior bio quality using curated knowledge base of bio writing best practices.
+
+## Key Features
+
+**AI-Powered Generation** - Leverages Groq's Llama 3 models (8B & 70B) for intelligent bio creation  
+**Platform-Specific Optimization** - Tailored content for Twitter/X, Instagram, and LinkedIn  
+**RAG-Enhanced AI** - Uses curated knowledge base for superior bio quality (always enabled)  
+**Customizable Tone & Style** - Professional, casual, funny, passionate, and more  
+**Responsive Design** - Beautiful, modern interface that works on all devices  
+**Real-Time Generation** - Fast bio creation with instant results  
+**One-Click Copy** - Easy clipboard integration for immediate use  
+**Multiple Variations** - Generate 4+ unique bio options per request
 
 ## Tech Stack
 
@@ -10,9 +21,12 @@ An AI-powered multi-platform bio generator built with Next.js and Groq's Llama 3
 - **Vercel AI SDK** - AI integration toolkit for LLM interactions
 - **Groq API** - High-performance AI inference platform
 
-### AI & Language Models
+### AI & RAG Enhancement
 - **Llama 3 8B** - Fast, efficient model for quick bio generation
 - **Llama 3 70B** - Advanced model for sophisticated content creation
+- **RAG System** - Enhanced generation using curated bio writing knowledge base
+- **OpenAI Embeddings** - Advanced semantic search for knowledge retrieval
+- **Automatic Enhancement** - RAG is always enabled for superior bio quality
 - **Zod** - Schema validation for type-safe AI responses
 - **Endent** - Template literal formatting for AI prompts
 
@@ -49,27 +63,31 @@ An AI-powered multi-platform bio generator built with Next.js and Groq's Llama 3
 - **Fallback System** - Graceful fallback to standard generation if RAG fails
 
 ### Enhanced RAG (Retrieval-Augmented Generation)
-- **Knowledge Base Management** - Curated collection of bio writing best practices
+- **Always Active** - RAG enhancement is automatically enabled for all bio generation
+- **Curated Knowledge Base** - Pre-loaded with 17+ expert bio writing guidelines
 - **Platform-Specific Guidelines** - Specialized knowledge for Twitter, Instagram, and LinkedIn
-- **Semantic Search** - Intelligent retrieval of relevant context for better bio generation
-- **Vector Embeddings** - Advanced similarity matching using OpenAI embeddings
-- **Text Fallback** - Fallback to text-based similarity when embeddings are unavailable
-- **Real-time Management** - Add, remove, and manage knowledge base content
+- **Semantic Search** - Intelligent retrieval of relevant context using OpenAI embeddings
+- **Text Fallback** - Graceful fallback to text-based similarity when embeddings unavailable
+- **Best Practices Integration** - Automatically incorporates proven bio writing techniques
+- **Tone-Specific Guidance** - Contextual advice for professional, casual, funny, and other tones
 
 ### Customization Options
-- **Tone Control** - Professional, casual, humorous, inspirational, and more
-- **Bio Types** - Personal, business, creative, academic, and specialized formats
-- **Creativity Levels** - Adjustable creativity scale (1-10) for AI generation
+- **Tone Control** - Professional, casual, humorous, passionate, thoughtful, and sarcastic
+- **Bio Types** - Personal or brand/business focused content
+- **Creativity Levels** - Adjustable creativity scale (0-2) for AI generation
 - **Emoji Integration** - Optional emoji inclusion for enhanced engagement
-- **Character Optimization** - Platform-specific character limits and best practices
+- **Platform Optimization** - Automatic character limit and style optimization
+- **Flexible Input** - No minimum word requirements for user input
 
 ### User Experience
+- **Streamlined Interface** - Clean, intuitive design with simplified controls
 - **Real-Time Generation** - Fast bio creation with instant results
 - **Multiple Variations** - Generate 4+ unique bio options per request
 - **One-Click Copy** - Easy clipboard integration for immediate use
 - **Responsive Design** - Seamless experience across all devices
 - **Interactive UI** - Modern interface with hover effects and animations
-- **Form Validation** - Real-time validation with helpful error messages
+- **Smart Validation** - Real-time validation with helpful error messages
+- **Auto-Enhanced Quality** - RAG system automatically improves all generated bios
 
 ### Platform-Specific Features
 - **Twitter/X** - 120-160 character limit, concise and punchy language
@@ -101,21 +119,25 @@ OPENAI_API_KEY=your_openai_api_key_here
    - Used for vector embeddings in RAG system
    - If not provided, RAG will use text-based similarity matching
 
-## RAG Knowledge Management
+## RAG Knowledge System
 
-The application includes a comprehensive RAG (Retrieval-Augmented Generation) system that enhances bio generation with curated knowledge:
+The application includes a comprehensive RAG (Retrieval-Augmented Generation) system that automatically enhances all bio generation:
 
-### Features:
-- **Knowledge Base Management**: Add, edit, and remove knowledge documents
-- **Semantic Search**: Intelligent retrieval of relevant context
-- **Platform-Specific Guidelines**: Specialized knowledge for each platform
-- **Vector Embeddings**: Advanced similarity matching (requires OpenAI API key)
-- **Text Fallback**: Works without embeddings using text-based similarity
+### Automatic Enhancement:
+- **Always Active**: RAG enhancement is automatically enabled for all bio generation
+- **Curated Knowledge Base**: Pre-loaded with 17+ expert bio writing guidelines
+- **Platform-Specific Guidelines**: Specialized knowledge for Twitter, Instagram, and LinkedIn
+- **Semantic Search**: Intelligent retrieval of relevant context using OpenAI embeddings
+- **Text Fallback**: Works without embeddings using text-based similarity matching
+- **Best Practices Integration**: Automatically incorporates proven bio writing techniques
 
-### Access:
-- Visit `/rag-management` to manage the knowledge base
-- Use the "Enhanced AI (RAG)" toggle in the main form
-- Pre-seeded with bio writing best practices
+### Knowledge Base Content:
+- Social media bio best practices
+- Platform-specific optimization guidelines
+- Tone and voice style guides
+- High-converting bio templates
+- Character limit optimization strategies
+- Engagement psychology principles
 
 ## Project Structure
 
@@ -138,15 +160,13 @@ BioSphere/
 │   │   │   ├── rag-knowledge/     # RAG knowledge management
 │   │   │   ├── seed-knowledge/    # Knowledge base seeding
 │   │   │   └── test-rag/         # RAG testing endpoint
-│   │   └── rag-management/   # RAG management page
-│   │       └── page.tsx      # RAG knowledge management UI
 │   ├── components/            # React components
 │   │   ├── home/             # Home page components
 │   │   │   ├── CopyLabel.tsx      # Copy to clipboard functionality
 │   │   │   ├── Output.tsx         # Bio generation results display
 │   │   │   └── UserInput.tsx      # Input form with all controls
 │   │   ├── rag/              # RAG-specific components
-│   │   │   └── RAGKnowledgeManager.tsx  # RAG management interface
+│   │   │   └── RAGKnowledgeManager.tsx  # RAG management interface (internal)
 │   │   ├── icons/            # Custom SVG icon components
 │   │   │   ├── Instagram.tsx      # Instagram brand icon
 │   │   │   ├── LinkedIn.tsx       # LinkedIn brand icon
@@ -351,9 +371,17 @@ The project uses several optimizations for optimal performance:
 
 ## Latest Version
 
-**Current Version:** 1.0.0 (June 2025)
+**Current Version:** 2.0.0 (July 2025)
 
-### Recent Updates
+### Recent Updates (v2.0.0)
+- **Simplified User Experience**: Removed RAG management UI for streamlined interface
+- **Automatic RAG Enhancement**: RAG is now always enabled for superior bio quality
+- **Flexible Input Requirements**: Removed minimum word count requirement for user input
+- **Enhanced Knowledge Base**: Pre-loaded with 17+ expert bio writing guidelines
+- **Improved Performance**: Optimized RAG system for faster generation
+- **Better Error Handling**: Enhanced fallback systems for reliable operation
+
+### Previous Updates (v1.0.0)
 - Implemented Groq AI integration with Llama 3 models
 - Added platform-specific bio optimization
 - Enhanced UI with Shadcn/ui components
@@ -440,11 +468,12 @@ This project is created by [bepooee](https://github.com/bepooee) and is availabl
 
 **Creator:** bepoooe  
 **Email:** [adrishbasak003@gmail.com](mailto:adrishbasak003@gmail.com)  
-**GitHub:** [https://github.com/bepooee](https://github.com/bepooee)  
-**Project Repository:** [https://github.com/bepooee/BioSphere](https://github.com/bepooee/BioSphere)
+**GitHub:** [https://github.com/bepoooe](https://github.com/bepoooe)  
+**Project Repository:** [https://github.com/bepoooe/BioSphere](https://github.com/bepoooe/BioSphere)
 
 ---
 
-⭐ **If you found BioSphere helpful, please consider giving it a star on GitHub!** ⭐
+**If you found BioSphere helpful, please consider giving it a star on GitHub!**
 
-Made by [bepooee](https://github.com/bepooee)
+**BioSphere v2.0** - AI-Powered Bio Generation with RAG Enhancement  
+Made with love by [bepoooe](https://github.com/bepoooe)
