@@ -4,6 +4,7 @@ import { generateObject } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
 import { z } from "zod";
 import endent from "endent";
+import { generateRAGBioWithFallback } from "@/lib/rag/RAGEnhancedAI";
 
 const groq = createOpenAI({
   apiKey: process.env.GROQ_API_KEY ?? "",
@@ -71,30 +72,91 @@ export async function generateBio(
   input: string,
   temperature: number,
   model: string,
-  platform: string
+  platform: string,
+  useRAG: boolean = true
 ) {
   "use server";
 
-  const {
-    object: data,
-    warnings,
-    finishReason,
-    rawResponse,
-  } = await generateObject({
-    model: groq(model),
-    system: systemPrompt,
-    prompt: input,
-    temperature: temperature,
-    maxTokens: 1024,
-    schema: z.object({
-      data: z.array(
-        z.object({
-          bio: z.string().describe("Add generated bio here!"),
-        })
-      ),
-    }),
-  });
-  // console.log(warnings, finishReason, rawResponse);
+  try {
+    // Try RAG-enhanced generation first
+    if (useRAG) {
+      const ragResult = await generateRAGBioWithFallback(
+        input,
+        temperature,
+        model,
+        platform,
+        true
+      );
+      
+      if (ragResult.success) {
+        return { 
+          data: ragResult.data, 
+          metadata: {
+            usedRAG: ragResult.usedRAG,
+            contextLength: ragResult.contextLength,
+            fallbackUsed: (ragResult as any).fallbackUsed || false,
+          }
+        };
+      }
+    }
 
-  return { data };
+    // Fallback to original generation method
+    const {
+      object: data,
+      warnings,
+      finishReason,
+      rawResponse,
+    } = await generateObject({
+      model: groq(model),
+      system: systemPrompt,
+      prompt: input,
+      temperature: temperature,
+      maxTokens: 1024,
+      schema: z.object({
+        data: z.array(
+          z.object({
+            bio: z.string().describe("Add generated bio here!"),
+          })
+        ),
+      }),
+    });
+
+    return { 
+      data, 
+      metadata: {
+        usedRAG: false,
+        contextLength: 0,
+        fallbackUsed: true,
+      }
+    };
+  } catch (error) {
+    console.error("Error in bio generation:", error);
+    
+    // Final fallback to original method
+    const {
+      object: data,
+    } = await generateObject({
+      model: groq(model),
+      system: systemPrompt,
+      prompt: input,
+      temperature: temperature,
+      maxTokens: 1024,
+      schema: z.object({
+        data: z.array(
+          z.object({
+            bio: z.string().describe("Add generated bio here!"),
+          })
+        ),
+      }),
+    });
+
+    return { 
+      data, 
+      metadata: {
+        usedRAG: false,
+        contextLength: 0,
+        fallbackUsed: true,
+      }
+    };
+  }
 }

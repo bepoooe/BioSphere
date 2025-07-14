@@ -22,7 +22,8 @@ export default function Home() {
               href="https://github.com/bepoooe/BioSphere"
               target="_blank"
               className="group inline-block"
-            ><AnimatedGradientText className="px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-accent/20">
+            >
+              <AnimatedGradientText className="px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border border-accent/20">
                 <Star className="w-5 h-5 fill-yellow-400 text-yellow-500 drop-shadow-sm" />
                 <hr className="mx-2 h-4 w-[1px] bg-gradient-to-b from-accent to-primary opacity-60" />
                 <span className="font-semibold bg-gradient-to-r from-foreground to-accent bg-clip-text text-transparent">Star on Github</span>

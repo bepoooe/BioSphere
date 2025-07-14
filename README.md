@@ -45,6 +45,16 @@ An AI-powered multi-platform bio generator built with Next.js and Groq's Llama 3
 - **Platform Optimization** - Tailored content for Twitter/X, Instagram, and LinkedIn
 - **Intelligent Prompting** - Context-aware AI prompts for better results
 - **Schema Validation** - Type-safe AI responses with structured output
+- **RAG Enhancement** - Retrieval-Augmented Generation with curated knowledge base
+- **Fallback System** - Graceful fallback to standard generation if RAG fails
+
+### Enhanced RAG (Retrieval-Augmented Generation)
+- **Knowledge Base Management** - Curated collection of bio writing best practices
+- **Platform-Specific Guidelines** - Specialized knowledge for Twitter, Instagram, and LinkedIn
+- **Semantic Search** - Intelligent retrieval of relevant context for better bio generation
+- **Vector Embeddings** - Advanced similarity matching using OpenAI embeddings
+- **Text Fallback** - Fallback to text-based similarity when embeddings are unavailable
+- **Real-time Management** - Add, remove, and manage knowledge base content
 
 ### Customization Options
 - **Tone Control** - Professional, casual, humorous, inspirational, and more
@@ -66,6 +76,47 @@ An AI-powered multi-platform bio generator built with Next.js and Groq's Llama 3
 - **Instagram** - 100-150 character limit, visual and lifestyle-focused content
 - **LinkedIn** - 160-220 character limit, professional tone with industry keywords
 
+## Environment Variables
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+# Required - Groq API key for AI model access
+GROQ_API_KEY=your_groq_api_key_here
+
+# Optional - OpenAI API key for RAG embeddings (improves RAG performance)
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+### Getting API Keys:
+
+1. **Groq API Key** (Required):
+   - Visit [Groq Cloud](https://console.groq.com/)
+   - Create an account and generate an API key
+   - Used for Llama 3 model access
+
+2. **OpenAI API Key** (Optional):
+   - Visit [OpenAI Platform](https://platform.openai.com/)
+   - Create an account and generate an API key
+   - Used for vector embeddings in RAG system
+   - If not provided, RAG will use text-based similarity matching
+
+## RAG Knowledge Management
+
+The application includes a comprehensive RAG (Retrieval-Augmented Generation) system that enhances bio generation with curated knowledge:
+
+### Features:
+- **Knowledge Base Management**: Add, edit, and remove knowledge documents
+- **Semantic Search**: Intelligent retrieval of relevant context
+- **Platform-Specific Guidelines**: Specialized knowledge for each platform
+- **Vector Embeddings**: Advanced similarity matching (requires OpenAI API key)
+- **Text Fallback**: Works without embeddings using text-based similarity
+
+### Access:
+- Visit `/rag-management` to manage the knowledge base
+- Use the "Enhanced AI (RAG)" toggle in the main form
+- Pre-seeded with bio writing best practices
+
 ## Project Structure
 
 ```
@@ -81,12 +132,21 @@ BioSphere/
 │   │   ├── globals.css        # Global styles and CSS variables
 │   │   ├── favicon.ico        # Website favicon
 │   │   ├── icon.png          # App icon
-│   │   └── apple-icon.png    # Apple touch icon
+│   │   ├── apple-icon.png    # Apple touch icon
+│   │   ├── api/              # API routes
+│   │   │   ├── generate-bio-rag/  # RAG-enhanced bio generation
+│   │   │   ├── rag-knowledge/     # RAG knowledge management
+│   │   │   ├── seed-knowledge/    # Knowledge base seeding
+│   │   │   └── test-rag/         # RAG testing endpoint
+│   │   └── rag-management/   # RAG management page
+│   │       └── page.tsx      # RAG knowledge management UI
 │   ├── components/            # React components
 │   │   ├── home/             # Home page components
 │   │   │   ├── CopyLabel.tsx      # Copy to clipboard functionality
 │   │   │   ├── Output.tsx         # Bio generation results display
 │   │   │   └── UserInput.tsx      # Input form with all controls
+│   │   ├── rag/              # RAG-specific components
+│   │   │   └── RAGKnowledgeManager.tsx  # RAG management interface
 │   │   ├── icons/            # Custom SVG icon components
 │   │   │   ├── Instagram.tsx      # Instagram brand icon
 │   │   │   ├── LinkedIn.tsx       # LinkedIn brand icon
@@ -114,7 +174,13 @@ BioSphere/
 │   ├── context/              # React Context providers
 │   │   └── BioContext.tsx    # Bio generation state management
 │   └── lib/                  # Utility functions
-│       └── utils.ts          # Tailwind class merging utilities
+│       ├── utils.ts          # Tailwind class merging utilities
+│       └── rag/              # RAG system components
+│           ├── SimpleRAGStore.ts     # Vector store implementation
+│           ├── RAGEnhancedAI.ts      # RAG-enhanced AI generation
+│           └── seedKnowledgeBase.ts  # Initial knowledge base data
+├── data/                     # Data storage
+│   └── chunks.json          # RAG knowledge chunks (auto-generated)
 ├── components.json           # Shadcn/ui configuration
 ├── next.config.mjs          # Next.js configuration
 ├── package.json             # Dependencies and scripts
@@ -135,7 +201,7 @@ BioSphere/
 
 ```bash
 # Clone the repository
-git clone https://github.com/bepoooe/BioSphere.git
+git clone https://github.com/bepooee/BioSphere.git
 
 # Navigate to the project directory
 cd BioSphere
@@ -353,7 +419,7 @@ The easiest way to deploy BioSphere is using [Vercel](https://vercel.com/):
    - `GROQ_API_KEY` - Your Groq API key
 3. **Deploy automatically on git push**
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/bepoooe/BioSphere)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/bepooee/BioSphere)
 
 ### Other Platforms
 
@@ -368,17 +434,17 @@ Make sure to set the `GROQ_API_KEY` environment variable on your chosen platform
 
 ## License
 
-This project is created by [bepoooe](https://github.com/bepoooe) and is available for educational and personal use.
+This project is created by [bepooee](https://github.com/bepooee) and is available for educational and personal use.
 
 ## Contact & Support
 
 **Creator:** bepoooe  
 **Email:** [adrishbasak003@gmail.com](mailto:adrishbasak003@gmail.com)  
-**GitHub:** [https://github.com/bepoooe](https://github.com/bepoooe)  
-**Project Repository:** [https://github.com/bepoooe/BioSphere](https://github.com/bepoooe/BioSphere)
+**GitHub:** [https://github.com/bepooee](https://github.com/bepooee)  
+**Project Repository:** [https://github.com/bepooee/BioSphere](https://github.com/bepooee/BioSphere)
 
 ---
 
 ⭐ **If you found BioSphere helpful, please consider giving it a star on GitHub!** ⭐
 
-Made by [bepoooe](https://github.com/bepoooe)
+Made by [bepooee](https://github.com/bepooee)

@@ -62,7 +62,7 @@ const formSchema = z.object({
     .max(2, "Temperature must be at most 1"),
   content: z
     .string()
-    .min(50, "Content should atlest have 50 characters.")
+    .min(1, "Content is required.")
     .max(500, "Content should not exceed 500 character limit."),
   type: z.enum(["personal", "brand"], {
     errorMap: () => ({ message: "Type is required!" }),
@@ -86,7 +86,8 @@ const formSchema = z.object({
 const UserInput = () => {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),    defaultValues: {
+    resolver: zodResolver(formSchema),
+    defaultValues: {
       model: "llama3-8b-8192",
       platform: "twitter",
       temperature: 1,
@@ -131,7 +132,9 @@ const UserInput = () => {
         userInputValues,
         values.temperature,
         values.model,
-        values.platform      );
+        values.platform,
+        true // Always use RAG
+      );
       // console.log(data);
       setOutput(data);
       setLoading(false);
