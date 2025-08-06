@@ -1,4 +1,4 @@
-# BioSphere 
+# BioSphere  
 An AI-powered multi-platform bio generator built with Next.js and Groq's Llama 3 models. This project features intelligent bio generation for Twitter/X, Instagram, and LinkedIn with platform-specific optimization, customizable settings, and real-time AI processing. Enhanced with RAG (Retrieval-Augmented Generation) for superior bio quality using curated knowledge base of bio writing best practices.
 
 ## Key Features
