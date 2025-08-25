@@ -11,6 +11,7 @@
   "author": "bepoooe <adrishbasak003@gmail.com> (https://github.com/bepoooe)",
   "dependencies": {
     "@ai-sdk/openai": "^0.0.14",
+    "@clerk/nextjs": "^6.31.4",
     "@hookform/resolvers": "^3.4.2",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-hover-card": "^1.0.7",
